@@ -8,7 +8,6 @@ from config import open_weather_token
 from aiogram import types, md
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram.utils.exceptions import CantRestrictSelf, CantRestrictChatOwner
-from filters import HasPermissions, BotHasPermissions
 from aiogram.dispatcher import filters
 
 class IsAdminFilter(BoundFilter):
