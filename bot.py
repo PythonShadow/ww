@@ -65,6 +65,8 @@ async def help_message(message:types.Message):
 
 /nigga - think about maaan
 
+/snek - отправляет змейку
+
 /link - отправляет ссылку на чат
 
 /start - вызвать *это сообщение*"""
@@ -115,6 +117,11 @@ async def cmd_dice(message: types.Message):
 async def cmd_nigga(message: types.Message):
 	pic = 'https://i.gifer.com/72nt.gif'
 	await bot.send_document(message.chat.id, pic)
+
+@dp.message_handler(commands="snek")
+async def sneksend(message: types.Message):
+	snek = 'CgACAgQAAxkBAAEK8LZg1PHlTUkby2lXChT8dwZRRTxF-gACJAIAAr1zjVIc0rwUL3vegh8E'
+	await bot.send_animation(message.chat.id, snek)
 
 @dp.message_handler(commands=["prefix", "преф"], commands_prefix="!/")
 async def pref(message: types.Message):
@@ -270,7 +277,6 @@ async def profile(message: types.Message):
 	elif member.status == "restricted":
 		status = "Ограничен"
 	await message.reply(f"Профиль {md.escape_md(member.user.full_name)}\n\nСтатус: {status}\nЗвание: {title}\nID: {user_id}\nЮзер: @{username}")
-
 
 
 
