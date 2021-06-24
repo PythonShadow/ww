@@ -37,15 +37,15 @@ dp.filters_factory.bind(IsAdminFilter)
 @dp.message_handler(commands=["start", "пинг"])
 async def help_message(message:types.Message):
 	text = """Я работаю! Помощь по боту: 
-/ban - банит человека 
+/ban - банит человека (реплаем)
 
-/prefix *тег* - выдает префикс 
+/prefix *префикс* - выдает префикс 
 
 /contact - отправляет фейк контакт
 
 /profile - профиль человека
 
-/info - информация о человеке
+/info - информация о человеке (реплаем)
 
 /dick - узнать длину своей *бибы*
 
@@ -77,7 +77,7 @@ async def help_message(message:types.Message):
 async def on_user_joined(message: types.Message):
 	await message.delete()
 
-@dp.message_handler(is_admin=True, commands=["ban"], commands_prefix="!/")
+@dp.message_handler(is_admin=True, commands=["ban", "бан"], commands_prefix="!/")
 async def cmd_ban(message: types.Message):
 	if not message.reply_to_message:
 		await message.reply("Заебал, используй эту команду ответом на сообщение!")
@@ -89,9 +89,9 @@ async def cmd_ban(message: types.Message):
 		await message.bot.kick_chat_member(chat_id=config.GROUP_ID, user_id=message.reply_to_message.from_user.id)
 		await message.reply_to_message.answer(f"{message.from_user.full_name} отсосал и был забанен.")
 	except CantRestrictSelf:
-		await message.answer("Ты даун чтоли?")
+		await message.answer(Я не буду себя банить, ди нахуй.")
 	except CantRestrictChatOwner:
-		await message.answer("Это создатель блять.")
+		await message.answer("Это создатель чата, блять.")
 
 @dp.message_handler(commands="dice")
 async def cmd_dice(message: types.Message):
@@ -149,7 +149,7 @@ async def contact(message: types.Message):
 	rnum = randint(1,9)
 	snek = str(rnum)*7
 	await message.reply_contact(f'+9 (98) {snek}',message.from_user.first_name)
-@dp.message_handler(text=["🎲"])
+@dp.message_handler(text="🎲")
 async def counter(message:types.Message):
 	await message.answer(f"{md.escape_md(message.from_user.id)} набрал {message.dice.value} очков")
 
@@ -176,6 +176,7 @@ async def getgay(message: types.Message):
 @dp.message_handler(commands=["staff"])
 async def staff(message: types.Message):
 	admins = await bot.get_chat_administrators(message.chat.id)
+        #гэнг, скопируй нормально, пожалуйста
 @dp.message_handler(commands=["id"])
 async def get_id(message: types.Message):
 	idd = md.code(message.from_user.id)
@@ -186,7 +187,7 @@ async def getid(message: types.Message):
 	user_id = md.code(message.reply_to_message.from_user.id)
 	await message.answer(f"*ID* этого пользователя: {user_id}", parse_mode="Markdown")
 
-@dp.message_handler(is_reply=True,commands=["info","инфо"])
+@dp.message_handler(is_reply=True,commands=["info","инфо"], commands_prefix="!/")
 async def info(message: types.Message):
 	reply_user = message.reply_to_message.from_user
 	user_id = reply_user.id
@@ -248,7 +249,7 @@ async def info(message: types.Message):
 *Звание*: {title}
 *Пермалинк*: [клик](tg://user?id={user_id})"""
 
-@dp.message_handler(commands=["profile", "профиль"])
+@dp.message_handler(commands=["profile", "профиль"], commands_prefix="!/")
 async def profile(message: types.Message):
 	member = await bot.get_chat_member(message.chat.id, message.from_user.id)
 	status = member.status
