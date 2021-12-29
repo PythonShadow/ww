@@ -247,6 +247,7 @@ async def info(message: types.Message):
 *Статус*: {status}
 *Звание*: {title}
 *Пермалинк*: [клик](tg://user?id={user_id})"""
+		await bot.send_message(message.chat.id, textnophoto, parse_mode="MarkdownV2")
 
 @dp.message_handler(commands=["profile", "профиль"])
 async def profile(message: types.Message):
