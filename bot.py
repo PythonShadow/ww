@@ -4,7 +4,6 @@ from random import randint
 import requests
 import datetime
 from pprint import pprint
-from config import open_weather_token
 from aiogram import types, md
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram.utils.exceptions import CantRestrictSelf, CantRestrictChatOwner
